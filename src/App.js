@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 
 function App() {
     return (
-        <div className="row col-3 justify-content-center">
+        <div className={"container"}>
             <NavBar/>
             <Home/>
             <Footer/>

@@ -56,9 +56,9 @@ const Card = (props) => {
     }
 
     return (
-        <div className="card w-50 h-50">
+        <div className="card">
             {/*<img src="resource/images/chips.png" className="card-img-top" alt="..."/>*/}
-            <img src={getImageName(props.item.itemCode)} className="card-img-top" alt="..."/>
+            <img src={getImageName(props.item.itemCode)} className="card-img-top"/>
             <div className="card-body text-center">
                 <h5 className="card-title">{props.item.name}</h5>
                 <a href="#" className="btn btn-primary m-lg-2 rounded-5 text-center">R{props.item.unitPrice}</a>
