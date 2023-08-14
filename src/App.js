@@ -31,19 +31,18 @@ function App() {
         axios.get('http://localhost:8080/vending-machine/inventory/get-all-items')
             .then(value => {
                 let data = value.data;
-                // console.log(data)
                 setItems(data)
-                // console.log(items)
                 setLoaded(true)
             })
     }, [loaded]);
 
     const purchaseItem = (e, itemCode, denominations) => {
-        let value1 = {
+        let request = {
             "itemCode": itemCode,
             "denominations": denominations
         };
-        let purchaseRequest = JSON.stringify(value1);
+
+        let purchaseRequest = JSON.stringify(request);
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
@@ -75,28 +74,8 @@ function App() {
             return alert(inSuffFundData.message)
         }
         denRef.current = [];
-
+        window.location.reload();
     };
-
-    function add1Rand() {
-        denRef.current.push("R1")
-    }
-
-    function add2Rand() {
-        denRef.current.push("R2")
-    }
-
-    function add5Rand() {
-        denRef.current.push("R5")
-    }
-
-    function add10Rand() {
-        denRef.current.push("R10")
-    }
-
-    function add20Rand() {
-        denRef.current.push("R20")
-    }
 
     function getCard(id, imgUri, name, unitPrice, itemCode, denominations, purchaseItem) {
         if (purchaseSuccessful) {
@@ -107,15 +86,15 @@ function App() {
                 <Card.Title>{name}</Card.Title>
                 <Card.Text>R{unitPrice}</Card.Text>
                 <div className="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" className="btn btn-secondary rounded-circle m-1" onClick={add1Rand}>R1
+                    <button type="button" className="btn btn-outline-primary rounded-circle m-1" onClick={add1Rand}>R1
                     </button>
-                    <button type="button" className="btn btn-secondary rounded-circle m-1" onClick={add2Rand}>R2
+                    <button type="button" className="btn btn-outline-primary rounded-circle m-1" onClick={add2Rand}>R2
                     </button>
-                    <button type="button" className="btn btn-secondary rounded-circle m-1" onClick={add5Rand}>R5
+                    <button type="button" className="btn btn-outline-primary rounded-circle m-1" onClick={add5Rand}>R5
                     </button>
-                    <button type="button" className="btn btn-secondary rounded-circle m-1" onClick={add10Rand}>R10
+                    <button type="button" className="btn btn-outline-primary rounded-circle m-1" onClick={add10Rand}>R10
                     </button>
-                    <button type="button" className="btn btn-secondary rounded-circle m-1" onClick={add20Rand}>R20
+                    <button type="button" className="btn btn-outline-primary rounded-circle m-1" onClick={add20Rand}>R20
                     </button>
                 </div>
                 <Button variant="primary" onClick={(e) => purchaseItem(e, itemCode, denominations)}>Purchase</Button>
@@ -136,7 +115,6 @@ function App() {
 
                             return (
                                 <Col className="d-flex">
-
                                     {
                                         getCard(id, imgUri, name, unitPrice, itemCode, denominations, purchaseItem)
                                     }
@@ -152,6 +130,25 @@ function App() {
         )
     }
 
+    function add1Rand() {
+        denRef.current.push("R1")
+    }
+
+    function add2Rand() {
+        denRef.current.push("R2")
+    }
+
+    function add5Rand() {
+        denRef.current.push("R5")
+    }
+
+    function add10Rand() {
+        denRef.current.push("R10")
+    }
+
+    function add20Rand() {
+        denRef.current.push("R20")
+    }
 }
 
 export default App;
