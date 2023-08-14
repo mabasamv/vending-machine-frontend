@@ -1,9 +1,8 @@
 import './App.css';
-import {Alert, Button, Card, Col, Container, Row, Spinner} from "react-bootstrap";
+import {Button, Card, Col, Container, Row, Spinner} from "react-bootstrap";
 import NavBarEx from "./view/NavBar";
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
-import NoAmountFound, {Successfull} from "./view/InSuffeciaentError";
 
 function App() {
     const getImageName = (itemCode) => {
@@ -23,9 +22,6 @@ function App() {
 
     const [items, setItems] = useState([])
     const [loaded, setLoaded] = useState(false)
-    const [purchaseSuccessful, setPurchaseSuccessful] = useState('');
-    const [inSuffFundData, setInSuffFundData] = useState('');
-    const [isFundInsuff, setIsFundInsuff] = useState(false);
     const denRef = useRef([]);
     useEffect(() => {
         axios.get('http://localhost:8080/vending-machine/inventory/get-all-items')
@@ -59,28 +55,19 @@ function App() {
                 if (value.status === 200) {
                     let data = value.data;
                     console.log(data)
-                    setPurchaseSuccessful(data)
                     setLoaded(true)
-                    setIsFundInsuff(false)
                 }
             }).catch(reason => {
             console.log("Something went wrong: " + reason)
             let data = reason.response.data;
-            setInSuffFundData(data)
-            setIsFundInsuff(true)
         });
 
-        if (inSuffFundData) {
-            return alert(inSuffFundData.message)
-        }
         denRef.current = [];
         window.location.reload();
     };
 
     function getCard(id, imgUri, name, unitPrice, itemCode, denominations, purchaseItem) {
-        if (purchaseSuccessful) {
-            return <Successfull/>
-        } else return <Card className="flex-fill m-2 shadow p-3 mb-5 bg-white rounded" key={id}>
+        return <Card className="flex-fill m-2 shadow p-3 mb-5 bg-white rounded" key={id}>
             <Card.Img className={"h-75"} variant="top" src={imgUri}/>
             <Card.Body className={"text-center"}>
                 <Card.Title>{name}</Card.Title>
