@@ -5,7 +5,6 @@ import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import NoAmountFound, {Successfull} from "./view/InSuffeciaentError";
 
-
 function App() {
     const getImageName = (itemCode) => {
         let path = "images/";
